@@ -14,6 +14,8 @@ RUN wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor 
 
 RUN apt-get install -y apt-transport-https ca-certificates && \
     apt-get update && \
-    apt-get install -y dotnet-sdk-${SDK_VERSION}
+    apt-get install -y dotnet-sdk-${SDK_VERSION} && \
+    apt remove -y gpg wget && \
+    rm -rf /var/lib/apt/lists/*
 
 RUN npm install -g serverless

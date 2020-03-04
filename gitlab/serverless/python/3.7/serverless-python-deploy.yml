@@ -1,0 +1,8 @@
+stages:
+  - deploy
+
+.serverless:deploy:
+  image: docker.pkg.github.com/noknox/cicd.templates/serverless-python-deploy:3.7.3
+  stage: deploy
+  script: 
+    - sls deploy --stage ${environment}

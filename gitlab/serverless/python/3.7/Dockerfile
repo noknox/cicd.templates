@@ -14,4 +14,5 @@ RUN wget https://www.python.org/ftp/python/${PYTHON_VERSION}/Python-${PYTHON_VER
     apt remove -y build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev wget && \
     rm -rf /var/lib/apt/lists/*
 
-RUN npm install -g serverless
+RUN npm install -g serverless && \
+    pip3 install awscli

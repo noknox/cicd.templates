@@ -18,4 +18,5 @@ RUN apt-get install -y apt-transport-https ca-certificates && \
     apt remove -y gpg wget && \
     rm -rf /var/lib/apt/lists/*
 
-RUN npm install -g serverless
+RUN npm install -g serverless && \
+    pip3 install awscli

@@ -8,4 +8,4 @@ stages:
   except:
     - external_pull_requests
   script:
-    - sls deploy --stage ${environment}
+    - sls deploy --stage ${DEPLOY_ENVIRONMENT}

@@ -2,7 +2,7 @@ stages:
   - deploy
 
 .serverless:deploy:
-  image: docker.pkg.github.com/noknox/cicd.templates/serverless-dotnet-deploy:2.1
+  image: registry.gitlab.com/noknox/cicd/cicd-templates/serverless-dotnet-deploy:2.1
   stage: deploy
   when: manual
   except:

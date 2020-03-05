@@ -7,6 +7,8 @@ stages:
   when: manual
   except:
     - external_pull_requests
+  before_script:
+    - mkdir -p ~/.aws
   script:
     # AWS Login
     - echo "\n[${AWS_PROFILE}]\n" >> ~/.aws/credentials

@@ -9,6 +9,7 @@ stages:
     - external_pull_requests
   script:
     # AWS Login
+    - echo "\n[${AWS_PROFILE}]\n" >> ~/.aws/credentials
     - temp_role=$(aws sts assume-role --role-arn ${AWS_ROLE_ARN} --role-session-name CI_API) &&
     - aws configure set profile.${AWS_PROFILE}.aws_access_key_id $(echo $temp_role | jq .Credentials.AccessKeyId | xargs) &&
     - aws configure set profile.${AWS_PROFILE}.aws_secret_access_key $(echo $temp_role | jq .Credentials.SecretAccessKey | xargs) &&

@@ -3,7 +3,7 @@ stages:
   - deploy
 
 serverless:build:
-  image: registry.gitlab.com/noknox/cicd/cicd-templates/serverless-python-deploy:3.7.3
+  image: registry.gitlab.com/noknox/cicd/cicd-templates/serverless-dotnet-deploy:2.1
   artifacts:
     paths:
     - "*.zip"

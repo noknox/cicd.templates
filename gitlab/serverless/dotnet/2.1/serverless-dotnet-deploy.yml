@@ -12,7 +12,7 @@ stages:
   script:
     # AWS Login
     - echo -e "\n[${AWS_PROFILE}]\n" >> ~/.aws/credentials
-    - temp_role=$(aws sts assume-role --role-arn ${AWS_ROLE_ARN} --role-session-name CI_API) &&
+    - temp_role=$(aws sts assume-role --role-arn ${AWS_ROLE_ARN} --role-session-name CI_Serverless) &&
     - aws configure set profile.${AWS_PROFILE}.aws_access_key_id $(echo $temp_role | jq .Credentials.AccessKeyId | xargs) &&
     - aws configure set profile.${AWS_PROFILE}.aws_secret_access_key $(echo $temp_role | jq .Credentials.SecretAccessKey | xargs) &&
     - aws configure set profile.${AWS_PROFILE}.aws_session_token $(echo $temp_role | jq .Credentials.SessionToken | xargs)

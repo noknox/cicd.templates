@@ -1,0 +1,34 @@
+stages:
+  - build
+  - deploy
+
+serverless:build:
+  image: registry.gitlab.com/noknox/cicd/cicd-templates/serverless-node-deploy:10
+  artifacts:
+    paths:
+    - "node_modules/**"
+  stage: build
+  when: always
+  script:
+    - npm install
+
+.serverless:deploy:
+  image: registry.gitlab.com/noknox/cicd/cicd-templates/serverless-node-deploy:10
+  dependencies:
+    - serverless:build
+  stage: deploy
+  when: manual
+  except:
+    - external_pull_requests
+  before_script:
+    - mkdir -p ~/.aws
+  script:
+    # AWS Login
+    - echo -e "\n[${AWS_PROFILE}]\n" >> ~/.aws/credentials
+    - temp_role=$(aws sts assume-role --role-arn ${AWS_ROLE_ARN} --role-session-name CI_Serverless) &&
+    - aws configure set profile.${AWS_PROFILE}.aws_access_key_id $(echo $temp_role | jq .Credentials.AccessKeyId | xargs) &&
+    - aws configure set profile.${AWS_PROFILE}.aws_secret_access_key $(echo $temp_role | jq .Credentials.SecretAccessKey | xargs) &&
+    - aws configure set profile.${AWS_PROFILE}.aws_session_token $(echo $temp_role | jq .Credentials.SessionToken | xargs)
+
+    # Deploy
+    - sls deploy --stage ${DEPLOY_ENVIRONMENT}

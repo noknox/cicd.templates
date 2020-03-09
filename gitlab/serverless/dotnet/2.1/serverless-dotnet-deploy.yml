@@ -2,7 +2,7 @@ stages:
   - build
   - deploy
 
-serverless:build:
+.serverless:build:
   image: registry.gitlab.com/noknox/cicd/cicd-templates/serverless-dotnet-deploy:2.1
   artifacts:
     paths:

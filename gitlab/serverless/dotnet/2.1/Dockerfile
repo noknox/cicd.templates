@@ -1,6 +1,7 @@
 FROM node:12.16.1-stretch-slim
 
 ENV SDK_VERSION=2.1
+ENV PATH="${PATH}:/root/.dotnet/tools"
 
 RUN apt-get update && \
     apt-get install -y gpg wget
@@ -26,4 +27,5 @@ RUN apt-get update && \
     rm -rf .aws && \
     apt-get remove -y wget zip && \
     rm -rf /var/lib/apt/lists/* && \
-    npm install -g serverless
+    npm install -g serverless && \
+    dotnet tool install --global Amazon.Lambda.Tools
